@@ -37,7 +37,7 @@ cat > /etc/docker/daemon.json << EOF
     "max-concurrent-downloads": 10,
     "insecure-registries": ["0.0.0.0/0"],
     "max-concurrent-uploads": 10,
-    "registry-mirrors": ["https://yefnfc9c.mirror.aliyuncs.com"],
+    "registry-mirrors": ["https://9cpn8tt6.mirror.aliyuncs.com"],
     "storage-driver": "overlay2"
 }
 EOF
