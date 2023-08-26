@@ -43,3 +43,32 @@ cat > /etc/docker/daemon.json << EOF
 EOF
 systemctl daemon-reload && systemctl restart docker.service
 ```
+
+### Conifg proxy
+docker pull
+在执行docker pull时，是由守护进程dockerd来执行。因此，代理需要配在dockerd的环境中。而这个环境，则是受systemd所管控，因此实际是systemd的配置。
+```shell
+sudo mkdir -p /etc/systemd/system/docker.service.d
+sudo touch /etc/systemd/system/docker.service.d/proxy.conf
+```
+在这个proxy.conf文件（可以是任意*.conf的形式）中，添加以下内容：
+```shell
+[Service]
+Environment="HTTP_PROXY=http://192.168.1.8:10809/"
+Environment="HTTPS_PROXY=http://192.168.1.8:10809/"
+Environment="NO_PROXY=localhost,127.0.0.1,.example.com"
+```
+这个代理是我本机用来科学上网的代理
+
+docker cli
+~/.docker/config.json
+
+或者设置daemon.json
+https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file
+
+Restart
+```shell
+systemctl daemon-reload
+systemctl restart docker
+```
+
